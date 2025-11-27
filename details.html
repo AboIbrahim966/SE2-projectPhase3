@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trip Details | VisitSaudi</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link
+  rel="stylesheet"
+  href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+  integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+  crossorigin="anonymous"
+/>
+  <style>
+    .detail-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      font-family: "Tajawal", sans-serif;
+      padding: 0 2rem;
+    }
+    .detail-left img {
+      max-width: 100%;
+      border-radius: 1rem;
+    }
+    .detail-right {
+      flex: 1;
+      background-color: #f8f7fc;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .detail-right h2 {
+      color: #6e0aef;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .detail-right input,
+    .detail-right select {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .btn-book {
+      background-color: #6e0aef;
+      color: white;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1.1rem;
+    }
+    .btn-book:hover {
+      background-color: #7d22f3;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">
+      <i class="fal fa-spa" style="color: #B197FC;"></i>
+      <h4>VisitSaudi</h4>
+    </div>
+    <div class="bars-menu">
+      <i class="fas fa-bars"></i>
+    </div>
+    <ul class="nav-items">
+   
+  <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+  <li class="nav-item"><a href="resale.html" class="nav-link">Resale</a></li>
+  <li class="nav-item"><a href="login.html" class="nav-link">Log in</a></li>
+</ul>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="detail-container">
+    <div class="detail-left">
+      <img id="place-img" src="" alt="Experience Image" />
+    </div>
+    <div class="detail-right">
+     <h2 style="display: flex; justify-content: space-between; align-items: center;">
+  <span id="place-title">Loading...</span>
+  <div style="display: flex; gap: 1rem; align-items: center;">
+    <i id="calendar-icon" class="far fa-calendar-plus" title="Add to Calendar" style="font-size: 1.6rem; cursor: pointer; color: black;"></i>
+    <i id="fav-icon" class="far fa-heart" style="font-size: 1.6rem; cursor: pointer; color: black;"></i>
+  </div>
+</h2>
+</h2>
+      <p><strong>Price:</strong> <span id="price"></span></p>
+
+      <label for="date">Choose Date:</label>
+      <input type="date" id="date" />
+
+      <label for="guests">Guests:</label>
+      <select id="guests">
+        <option>1 Adult</option>
+        <option>2 Adults</option>
+        <option>3 Adults</option>
+      </select>
+
+      <button id="confirm-booking" class="btn-book">Confirm Booking</button>
+     
+    </div>
+  </div>
+
+  <!-- Map -->
+  <div class="map-section" style="margin: 2rem auto; max-width: 1200px;">
+    <h3 style="margin-bottom: 1rem; font-family: Tajawal, sans-serif; color: #6e0aef;">Location on Map</h3>
+    <iframe id="map-frame" width="100%" height="450" style="border:0; border-radius: 1rem;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+
+  <!-- Reviews -->
+  <div class="review-section" style="max-width: 1200px; margin: 2rem auto; font-family: 'Tajawal', sans-serif;">
+    <h3 style="color: #6e0aef;">Leave a Review</h3>
+    <input type="text" id="review-name" placeholder="Your Name" style="width: 100%; padding: 0.5rem; margin: 0.5rem 0; border-radius: 6px; border: 1px solid #ccc;" />
+    <div style="margin: 0.5rem 0;">
+      <label>Rating: </label>
+      <select id="review-rating" style="padding: 0.3rem; border-radius: 6px;">
+        <option value="5">★★★★★ (5)</option>
+        <option value="4">★★★★☆ (4)</option>
+        <option value="3">★★★☆☆ (3)</option>
+        <option value="2">★★☆☆☆ (2)</option>
+        <option value="1">★☆☆☆☆ (1)</option>
+      </select>
+    </div>
+    <textarea id="review-text" rows="4" placeholder="Write your review..." style="width: 100%; padding: 0.5rem; margin-bottom: 1rem; border-radius: 6px; border: 1px solid #ccc;"></textarea>
+    <button id="submit-review" class="btn-book" style="margin-bottom: 1rem;">Submit Review</button>
+    <div id="review-list"></div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" style="display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background-color:#6e0aef; color:white; padding:1rem 2rem; border-radius:8px; z-index:9999; font-family:Tajawal, sans-serif; font-size: 1rem; box-shadow: 0 0 10px rgba(0,0,0,0.2);">Success</div>
+
+  <script>
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.style.display = "block";
+      setTimeout(() => {
+        toast.style.display = "none";
+      }, 3000);
+    }
+
+    document.querySelector(".bars-menu").addEventListener("click", () => {
+      document.querySelector(".nav-items").classList.toggle("active");
+    });
+    document.querySelectorAll(".nav-link").forEach((item) => {
+      item.addEventListener("click", () => {
+        document.querySelector(".nav-items").classList.remove("active");
+      });
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    let title = params.get("title") || "Unknown Destination";
+    const price = params.get("price") || "0";
+    const img = params.get("img") || "default.jpg";
+    title = title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();
+
+    document.getElementById("place-title").textContent = title;
+    document.getElementById("price").textContent = price + " SAR / person";
+    document.getElementById("place-img").src = "images/" + img;
+
+    const mapLinks = {
+      Alula: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d905682.6114195188!2d36.57669465!3d26.61528295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15f977f5b12fdf41%3A0x33f5e1f48f67998f!2sAlUla!5e0!3m2!1sen!2ssa!4v1686740084585",
+      Diriyah: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.140222539772!2d46.5700996!3d24.7384396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03f14e25cbdb%3A0x6e77a6d560c6dd19!2sAt-Turaif%2C%20Ad%20Diriyah!5e0!3m2!1sen!2ssa!4v1686758843211",
+      Madinah: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14044.745702801378!2d39.5836674!3d24.5246549!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3cdccb1230fd1%3A0x9c63e9a8e3c3803!2sMadinah!5e0!3m2!1sen!2ssa!4v1686740211111",
+      Aseer: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.446990986325!2d42.4890867!3d24.0958789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15e33ba5474ef75d%3A0xf8919be02ab8bcde!2sAsir%20Province!5e0!3m2!1sen!2ssa!4v1686758985329"
+    };
+    document.getElementById("map-frame").src = mapLinks[title] || mapLinks["Alula"];
+
+    document.getElementById("confirm-booking").addEventListener("click", () => { //booking with date that needs changing.
+      const getDate = document.getElementById("date").value;
+       if (!getDate) {
+        showToast("Please select a date first!");
+        return;
+      }
+      const selectedDate = new Date(getDate);
+      const today = new Date();
+      
+      selectedDate.setHours(0, 0, 0, 0);
+      today.setHours(0, 0, 0, 0);
+
+       if (selectedDate < today) {
+        showToast("Invalid date! Please select today or a future date.");
+        return;
+      }
+
+      showToast("Your booking is confirmed!");
+    });
+
+    document.getElementById("submit-review").addEventListener("click", () => {
+      const name = document.getElementById("review-name").value.trim();
+      const rating = document.getElementById("review-rating").value;
+      const review = document.getElementById("review-text").value.trim();
+      const reviewList = document.getElementById("review-list");
+
+      if (name && review) {
+        const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
+        const reviewBox = document.createElement("div");
+        reviewBox.style.borderTop = "1px solid #ddd";
+        reviewBox.style.padding = "1rem 0";
+        reviewBox.innerHTML = `
+          <strong>${name}</strong><br>
+          <span style="color: gold; font-size: 1.2rem;">${stars}</span>
+          <p>${review}</p>
+        `;
+        reviewList.prepend(reviewBox);
+        showToast("Thank you for your review!");
+        document.getElementById("review-name").value = "";
+        document.getElementById("review-rating").value = "5";
+        document.getElementById("review-text").value = "";
+      } else {
+        showToast("Please enter your name and review.");
+      }
+    });
+    const favIcon = document.getElementById("fav-icon");
+let isFavorite = false;
+
+const favorite = {
+  title: document.getElementById("place-title").textContent,
+  price: document.getElementById("price").textContent,
+  img: document.getElementById("place-img").src
+};
+
+// Check if already in favorites
+const savedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+if (savedFavorites.some(f => f.title === favorite.title)) {
+  favIcon.classList.remove("far");
+  favIcon.classList.add("fas");
+  isFavorite = true;
+}
+
+favIcon.addEventListener("click", () => {
+  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+  if (isFavorite) {
+    favorites = favorites.filter(f => f.title !== favorite.title);
+    favIcon.classList.remove("fas");
+    favIcon.classList.add("far");
+    showToast("Removed from favorites");
+  } else {
+    favorites.push(favorite);
+    favIcon.classList.remove("far");
+    favIcon.classList.add("fas");
+    showToast("Added to favorites");
+  }
+
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+  isFavorite = !isFavorite;
+});
+document.getElementById("calendar-icon").addEventListener("click", () => {
+  const title = document.getElementById("place-title").textContent;
+  const dateInput = document.getElementById("date").value;
+
+  if (!dateInput) {
+    showToast("Please choose a date first.");
+    return;
+  }
+
+  const startDate = new Date(dateInput);
+  const endDate = new Date(startDate);
+  endDate.setHours(endDate.getHours() + 2);
+
+  const formatDate = (date) => {
+    return date.toISOString().replace(/-|:|\.\d\d\d/g, "");
+  };
+
+  const calendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${formatDate(startDate)}/${formatDate(endDate)}&details=Book%20your%20spot%20now%20at%20VisitSaudi&location=Saudi%20Arabia`;
+
+  window.open(calendarUrl, "_blank");
+});
+  </script>
+<script src="js/api-bridge.js"></script>
+</body>
+</html>
+
+<script>
+document.addEventListener('DOMContentLoaded', async ()=>{
+  const box = document.getElementById('details');
+  if (!box) return;
+  const q = new URLSearchParams(location.search);
+  const id = Number(q.get('id')||0);
+  if (!id){ box.textContent='No event id'; return; }
+  const data = await API.listEvents();
+  const e = (data.events||[]).find(x=>Number(x.id)===id);
+  if (!e){ box.textContent='Event not found'; return; }
+  box.innerHTML = `<h2>${e.title}</h2>
+  <p>${e.location} — ${fmtDate(e.event_date)}</p>
+  <p>Price: ${e.price}</p>
+  <p>${e.description||''}</p>
+  <button id="book">Book</button>`;
+  document.getElementById('book')?.addEventListener('click', async ()=>{
+    const u = Session.get(); if (!u){ alert('Please login first'); location.href='login.html'; return; }
+    const r = await API.book(u.id, id, 1);
+    alert(r.ok ? ('Booked! '+r.booking_id) : ('Failed: ' + (r.error||'')));
+  });
+});
+</script>

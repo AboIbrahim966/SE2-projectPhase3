@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="En" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>VisitSaudi</title>
+
+
+    <script>
+  (function(){
+    try {
+      const user = JSON.parse(localStorage.getItem('user') || 'null');
+      if (!user || !user.email) {
+        window.stop(); 
+        window.location.href = 'login.html';
+      }
+    } catch(e){
+      window.stop();
+      window.location.href = 'login.html';
+    }
+  })();
+</script>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav>
+      <div class="logo">
+       <i class="fal fa-spa" style="color: #B197FC;"></i>
+        <h4>VisitSaudi</h4>
+      </div>
+      <div class="bars-menu">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul class="nav-items">
+        <li class="nav-item">
+          <a href="login.html" class="nav-link">Log in</a>
+        </li>
+        <li class="nav-item">
+          <a href="#features" class="nav-link">Tickets</a>
+        </li>
+        <li class="nav-item">
+          <a href="#newest" class="nav-link">Destinations</a>
+          <li class="nav-item"><a href="resale.html" class="nav-link">Resale</a></li>
+        </li>
+        <li class="nav-item">
+  <a href="#" onclick="logout()" class="nav-link">Logout</a>
+</li>
+      </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="hero-section">
+        <div class="content">
+            <img src="./images/redsea.jpg" alt="" srcset="" width="800">
+          <h4></h4>
+          <h1>
+            Suadi Red Sea
+          </h1>
+          <p>
+            Experience the perfect blend of luxury and adventure
+          </p>
+          <button class="btn"><a href="#features"> Learn More </a></button>
+        </div>
+        <div class="hero-imges">
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+      <div class="features-section">
+        <h4>Book Your Next Adventure
+</h4>
+        <div class="qualities">
+          <div class="quality">
+             <img src="./images/38378d6f-96ba-4682-a94c-9f6e70880a7a.jpg" alt="r" width="270" />
+            <h3>
+  <i class="fas fa-map-marker-alt" style="color:#6e0aef; margin-left: 8px; font-size: 0.9rem;"></i>
+  ALULA - INTERNATIONAL
+</h3>
+            <p>Maraya Social by Jason Atherton</p>
+            <p><strong></strong> </p>
+            <div class="price-date">
+    <img src="./images/Saudi_Riyal_Symbol-1.png" alt="price icon" width="20" />
+    <span style="margin-left: 0.5rem;"><strong>150 </strong></span>
+  </div>
+  <button>
+    <a href="details.html?title=AlUla&price=150&img=38378d6f-96ba-4682-a94c-9f6e70880a7a.jpg">Book Now</a>
+  </button>
+</div>
+
+          <div class="quality">
+            <img src="./images/DEAIA.jpg" width="270">
+            <h3>
+  <i class="fas fa-map-marker-alt" style="color:#6e0aef; margin-left: 8px; font-size: 0.9rem;"></i>
+ Diriyah
+</h3>
+            <p> A City that Embraces the History of Saudi Arabia </p>
+                  <div class="price-date">
+    <img src="./images/Saudi_Riyal_Symbol-1.png" alt="price icon" width="20" />
+    <span style="margin-left: 0.5rem;"><strong>450 </strong></span>
+  </div>
+  <button>
+   <a href="details.html?title=Diriyah&price=450&img=DEAIA.jpg">Book Now</a>
+  </button>
+</div>
+          <div class="quality">
+           <img src="./images/MADIENA.jpg" width="260">
+                       <h3>
+  <i class="fas fa-map-marker-alt" style="color:#6e0aef; margin-left: 8px; font-size: 0.9rem;"></i>
+ Madinah
+</h3>
+            <p> Biography of the Prophet Tour- Group Trip
+ </p>
+                 <div class="price-date">
+    <img src="./images/Saudi_Riyal_Symbol-1.png" alt="price icon" width="20" />
+    <span style="margin-left: 0.5rem;"><strong>350 </strong></span>
+  </div>
+  <button>
+        <a href="details.html?title=Madinah&price=350&img=MADIENA.jpg">Book Now</a>
+  </button>
+</div>
+          <div class="quality">
+            <img src="./images/EVENTASIR.jpg" width="260">
+                                 <h3>
+  <i class="fas fa-map-marker-alt" style="color:#6e0aef; margin-left: 8px; font-size: 0.9rem;"></i>
+ ASEER
+</h3>
+            <p> Abha Forests Hiking
+            </p>
+                  <div class="price-date">
+    <img src="./images/Saudi_Riyal_Symbol-1.png" alt="price icon" width="20" />
+    <span style="margin-left: 0.5rem;"><strong>250 </strong></span>
+  </div>
+  <button>
+    <a href="details.html?title=ASEER&price=250&img=EVENTASIR.jpg">Book Now</a>
+  </button>
+</div>
+    </section>
+
+    <!-- What's New Section -->
+    <section class="newest-phones" id="newest">
+      <div class="phones-section">
+        <h4> Destinations</h4>
+        <div class="phones">
+          <div class="phone">
+            <img src="./images/rid.jpg" width="200" />
+            <h3>Riyadh</h3>
+          </div>
+          <div class="phone">
+            <img src="./images/abha.jpg" width="200"/>
+            <h3>Al-Baha</h3>
+          </div>
+          <div class="phone">
+            <img src="./images/jed.jpg" width="200"/>
+            <h3>Jeddah</h3>
+          </div>
+          <div class="phone">
+            <img src="./images/alaua.jpg"width="210" />
+            <h3>AlUla</h3>
+          </div>
+          <div class="phone">
+            <img src="./images/taif.jpg"width="200" />
+            <h3>Taif</h3>
+          </div>
+          <div class="phone">
+            <img src="./images/aser.jpg"width="170" />
+            <h3>Asir</h3>
+          </div>
+        </div>
+        <button class="btn">
+          <a href="#">Browse Destinations</a>
+        </button>
+      </div>
+    </section>
+
+    <!-- Browse Events Section -->
+    <section class="events" id="events">
+      <div class="events-section">
+        <h4>Browse Events</h4>
+
+        <!-- التصنيفات -->
+        <div class="event-filters">
+          <button onclick="filterEvents('all')">All</button>
+          <button onclick="filterEvents('entertainment')">Entertainment</button>
+          <button onclick="filterEvents('cultural')">Cultural</button>
+          <button onclick="filterEvents('adventure')">Adventure</button>
+          <button onclick="filterEvents('sports')">Sports</button>
+        </div>
+
+        <!-- كروت الأحداث (تظل كما هي، وسنستبدلها فقط إذا رجّع الـAPI بيانات) -->
+        <div class="event-list" id="eventList">
+          <div class="event-card" data-category="entertainment">
+            <img src="./images/The-Boulevard-City (1).jpg" alt="Concert" class="event-img" />
+            <div class="event-info">
+              <h3>Riyadh Season - Concert</h3>
+              <p>Live music & shows in Riyadh</p>
+            </div>
+          </div>
+
+          <div class="event-card" data-category="cultural">
+            <img src="./images/heritage-oasis-trail-experience-hero-03.jpg" alt="Heritage" class="event-img" />
+            <div class="event-info">
+              <h3>AlUla Heritage Week</h3>
+              <p>Explore Saudi Arabia's rich history</p>
+            </div>
+          </div>
+
+          <div class="event-card" data-category="adventure">
+            <img src="./images/caption.jpg" alt="Hiking" class="event-img" />
+            <div class="event-info">
+              <h3>Abha Mountain Hiking</h3>
+              <p>Join our guided trail in Asir region</p>
+            </div>
+          </div>
+
+          <div class="event-card" data-category="sports">
+            <img src="./images/fda88b2d-fd2c-4664-8242-4de747544a5d.jpg" alt="Al-Nassr vs Al-Hilal" class="event-img" />
+            <div class="event-info">
+              <h3>Al-Nassr vs Al-Hilal</h3>
+              <p>Saudi Classico at Al-Awwal Park Stadium</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-section">
+        <p> 2025 Project Eng</p>
+        <div class="socials">
+          <i class="fab fa-instagram"></i>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ملفاتك -->
+    <script src="./script.js"></script>
+
+    <!-- تعزيز بدون كسر التصميم: نجلب الفعاليات من القاعدة فقط إن وُجدت -->
+    <script>
+      const API_BASE = 'http://localhost/backend-php-mysql-scaffold/';
+
+      function normalizeImg(p){
+        if(!p) return 'images/default.jpg';
+        if (p.startsWith('http://') || p.startsWith('https://')) return p;
+        if (p.startsWith('./') || p.startsWith('/')) return p.replace(/^\.\//,'');
+        return p.startsWith('images/') ? p : ('images/' + p);
+      }
+
+      (async function loadEventsFromDB(){
+        const box = document.getElementById('eventList');
+        if (!box) return;
+        try{
+          const res = await fetch(API_BASE + 'api_events_list.php', { cache:'no-store' });
+          if (!res.ok) return; // لا تغيّر شيء إذا فشل
+          const data = await res.json();
+          const events = Array.isArray(data.events) ? data.events : [];
+          if (!events.length) return; // خله على تصميمك الأصلي
+
+          // لو فيه بيانات من القاعدة، نستبدل الكروت بنفس الشكل (classnames نفسها)
+          box.innerHTML = events.map(e => `
+            <div class="event-card" data-category="auto">
+              <img src="${normalizeImg(e.image_url||'')}" alt="${e.title||''}" class="event-img" />
+              <div class="event-info">
+                <h3>${e.title||''}</h3>
+                <p>${e.description||''}</p>
+              </div>
+            </div>
+          `).join('');
+        }catch(_err){
+          // لا شيء — نخلي التصميم الأصلي
+        }
+      })();
+    </script>
+    <script>
+  function logout() {
+    // حذف بيانات المستخدم من التخزين المحلي
+    localStorage.removeItem('user');
+    // إعادة التوجيه إلى صفحة تسجيل الدخول
+    window.location.href = 'login.html';
+  }
+</script>
+  </body>
+</html>

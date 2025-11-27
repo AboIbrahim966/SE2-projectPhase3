@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | VisitSaudi</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: url('images/1-Red-Sea-Global-Your-Guide-To-The-Red-Sea-Project-in-Saudi-Arabia.png') no-repeat center center fixed;
+      background-size: cover;
+      font-family: "Tajawal", sans-serif;
+    }
+    .login-container {
+      background-color: white;
+      padding: 2rem 3rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+      width: 100%;
+      max-width: 400px;
+    }
+    .login-container h2 { text-align: center; margin-bottom: 1.5rem; color: #6e0aef; }
+    .login-container label { display: block; margin-bottom: 0.5rem; margin-top: 1rem; font-weight: bold; color: #333; }
+    .login-container input { width: 100%; padding: 0.7rem; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 1rem; }
+    .login-container button { width: 100%; padding: 0.7rem; background-color: #6e0aef; color: white; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; transition: 0.3s; }
+    .login-container button:hover { background-color: #7d22f3; }
+    .msg { text-align: center; color: red; margin-bottom: 10px; font-size: 0.9rem; min-height: 18px; }
+    .msg.success { color: green; }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2 id="form-title">Log In to VisitSaudi</h2>
+
+    <!-- Login Form -->
+    <form id="login-form" onsubmit="return false;">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required />
+
+      <div id="loginMsg" class="msg"></div>
+
+      <button type="submit">Login</button>
+      <p>Don't have an account? <a href="#" onclick="toggleForms(); return false;">Register</a></p>
+    </form>
+
+    <!-- Register Form -->
+    <form id="register-form" style="display: none;" onsubmit="return false;">
+      <label for="reg-name">Full Name</label>
+      <input type="text" id="reg-name" placeholder="Your Name" required />
+      <label for="reg-email">Email Address</label>
+      <input type="email" id="reg-email" placeholder="you@example.com" required />
+      <label for="reg-password">Password</label>
+      <input type="password" id="reg-password" placeholder="Create a password" required />
+      <div id="registerMsg" class="msg"></div>
+      <button type="submit">Register</button>
+      <p>Already have an account? <a href="#" onclick="toggleForms(); return false;">Log In</a></p>
+    </form>
+  </div>
+
+  <script>
+    const API_BASE = "http://localhost/backend-php-mysql-scaffold/";
+
+    function toggleForms() {
+      const loginForm = document.getElementById("login-form");
+      const registerForm = document.getElementById("register-form");
+      const title = document.getElementById("form-title");
+      const isLogin = loginForm.style.display !== "none";
+      loginForm.style.display = isLogin ? "none" : "block";
+      registerForm.style.display = isLogin ? "block" : "none";
+      title.textContent = isLogin ? "Register for VisitSaudi" : "Log In to VisitSaudi";
+      document.getElementById("loginMsg").textContent = "";
+      document.getElementById("registerMsg").textContent = "";
+    }
+
+    async function apiCall(path, body) {
+      const res = await fetch(API_BASE + path, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+      let payload = null;
+      try { payload = await res.clone().json(); } catch {}
+      return { ok: res.ok, status: res.status, payload };
+    }
+
+    // Register handler
+    document.getElementById("register-form").addEventListener("submit", async () => {
+      const name = document.getElementById("reg-name").value.trim();
+      const email = document.getElementById("reg-email").value.trim();
+      const password = document.getElementById("reg-password").value;
+      const msg = document.getElementById("registerMsg");
+      msg.textContent = "Creating account...";
+      const res = await apiCall("api_register.php", { name, email, password });
+      if (res.ok && res.payload?.ok) {
+        msg.className = "msg success";
+        msg.textContent = "Account created successfully! You can now log in.";
+        setTimeout(() => toggleForms(), 1500);
+      } else {
+        msg.textContent = res.payload?.error || "Registration failed.";
+      }
+    });
+
+    // Login handler
+    document.getElementById("login-form").addEventListener("submit", async () => {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const msg = document.getElementById("loginMsg");
+      msg.textContent = "Checking credentials...";
+      msg.classList.remove("success");
+
+      const res = await apiCall("api_login.php", { email, password });
+      const data = res.payload || {};
+
+      if (res.status === 429 && data?.lock?.remaining_seconds) {
+        const mins = Math.max(1, Math.ceil(data.lock.remaining_seconds / 60));
+        msg.textContent = `Too many login attempts. Please try again after ${mins} minute(s).`;
+        msg.style.color = "#c0392b";
+        return;
+      }
+
+      if (res.ok && data.ok && data.user) {
+        msg.className = "msg success";
+        msg.textContent = `Welcome back, ${data.user.name || 'User'}!`;
+        localStorage.setItem("user", JSON.stringify(data.user));
+        setTimeout(() => (window.location.href = "index.html"), 800);
+      } else {
+        msg.textContent = data.error || "Invalid email or password.";
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ticket Resale | VisitSaudi</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .resale-container {
+      max-width: 800px;
+      margin: 3rem auto;
+      font-family: 'Tajawal', sans-serif;
+    }
+    .resale-container h2 {
+      color: #6e0aef;
+      margin-bottom: 1rem;
+    }
+    .resale-container input {
+      width: 100%;
+      padding: 0.7rem;
+      margin: 0.5rem 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .btn-submit {
+      background-color: #6e0aef;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    .ticket {
+      background-color: #f8f7fc;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.05);
+    }
+    .ticket p {
+      margin: 0.2rem 0;
+    }
+    .ticket button {
+      margin-top: 0.5rem;
+      background-color: #6e0aef;
+      color: white;
+      border: none;
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">
+      <i class="fal fa-spa" style="color: #B197FC;"></i>
+      <h4>VisitSaudi</h4>
+    </div>
+    <div class="bars-menu"><i class="fas fa-bars"></i></div>
+    <ul class="nav-items">
+      <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+      <li class="nav-item"><a href="resale.html" class="nav-link">Resale</a></li>
+    </ul>
+  </nav>
+
+  <div class="resale-container">
+    <h2>List Your Ticket for Resale</h2>
+    <input type="text" id="seller" placeholder="Your Name">
+    <input type="text" id="event" placeholder="Event Name">
+    <input type="number" id="price" placeholder="Price in SAR">
+    <button class="btn-submit" onclick="addTicket()">Add Ticket</button>
+
+    <h2 style="margin-top: 3rem;">Available Tickets</h2>
+    <div id="ticket-list"></div>
+  </div>
+
+  <script>
+    function addTicket() {
+      const seller = document.getElementById("seller").value.trim();
+      const event = document.getElementById("event").value.trim();
+      const price = document.getElementById("price").value.trim();
+
+      if (seller && event && price) {
+        const ticketList = document.getElementById("ticket-list");
+        const ticket = document.createElement("div");
+        ticket.className = "ticket";
+        ticket.innerHTML = `
+          <p><strong>Event:</strong> ${event}</p>
+          <p><strong>Seller:</strong> ${seller}</p>
+          <p><strong>Price:</strong> ${price} SAR</p>
+          <button onclick="alert('Ticket reserved successfully!')">Buy Ticket</button>
+        `;
+        ticketList.prepend(ticket);
+
+        // Reset fields
+        document.getElementById("seller").value = "";
+        document.getElementById("event").value = "";
+        document.getElementById("price").value = "";
+      } else {
+        alert("Please fill in all fields.");
+      }
+    }
+  </script>
+
+</body>
+</html>
