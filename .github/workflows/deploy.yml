@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # Simple HTML, CSS, JS syntax check
-      - name: Install HTML/CSS/JS linters
+      # Install HTML/CSS/JS tools
+      - name: Install validators
         run: |
           sudo apt-get update
           sudo apt-get install -y tidy
@@ -37,12 +37,11 @@ jobs:
         run: |
           for file in $(find . -name "*.js"); do
             echo "Checking JS syntax for $file"
-            node -c "$file" 2>/dev/null || true
+            node --check "$file" 2>/dev/null || true
           done
 
-      # Upload the site as artifact to deploy
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: .
 
@@ -55,4 +54,4 @@ jobs:
 
     steps:
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
