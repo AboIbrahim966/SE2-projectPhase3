@@ -2,7 +2,8 @@ name: Deploy Static Website
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build:
@@ -12,19 +13,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # HTML validation
       - name: Validate HTML
-     	uses: Cyb3r-Jak3/html5validator-action@v0.5.0
+        uses: Cyb3r-Jak3/html5validator-action@v0.5.0
         with:
           root: .
 
-      # CSS validation
       - name: Validate CSS
         run: |
+          sudo apt-get update
           sudo apt-get install -y tidy
           tidy -qe **/*.css || true
 
-      # JS linting
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -36,7 +35,6 @@ jobs:
       - name: Run ESLint
         run: eslint "**/*.js" || true
 
-      # Deploy to Pages
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
